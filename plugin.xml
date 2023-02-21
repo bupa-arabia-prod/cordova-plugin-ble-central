@@ -57,7 +57,7 @@
 
     <platform name="android">
         
-        <preference name="ACCESS_BACKGROUND_LOCATION" default="false" />
+        <preference name="ACCESS_BACKGROUND_LOCATION" default="true" />
         
         <config-file target="res/xml/config.xml" parent="/widget">
             <feature name="BLE">
@@ -65,15 +65,24 @@
             </feature>
         </config-file>
 
-        <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="28" />
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
-            <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
-            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
-            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation" />
-            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-        </config-file>
+       
 
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+            <!-- Needed only if your app makes the device discoverable to Bluetooth
+                 devices. -->
+            <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+            <!-- Needed only if your app communicates with already-paired Bluetooth
+                 devices. -->
+            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+            <!-- Needed only if your app uses Bluetooth scan results to derive physical location. -->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    </config-file>
+        
+        
         <config-file target="res/xml/config.xml" parent="/*">
             <preference name="accessBackgroundLocation" value="$ACCESS_BACKGROUND_LOCATION"/>
         </config-file>
