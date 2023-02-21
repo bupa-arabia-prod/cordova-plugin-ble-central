@@ -68,6 +68,11 @@
        
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"  />
+            <uses-permission android:name="android.permission.BLUETOOTH"  />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"  />
+            
             <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
             <!-- Needed only if your app makes the device discoverable to Bluetooth
@@ -88,7 +93,8 @@
         </config-file>
 
         <hook type="after_prepare" src="hooks/after_prepare.js"/>
-
+        <hook src="plugins/cordova-plugin-ble-central/stripDuplicatePermissions.js" type="after_prepare" />
+        
         <source-file src="src/android/BLECentralPlugin.java"
             target-dir="src/com/megster/cordova/ble/central"/>
         <source-file src="src/android/SequentialCallbackContext.java"
